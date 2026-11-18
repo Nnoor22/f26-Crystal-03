@@ -1,0 +1,6 @@
+﻿id;text;outcome_text;correct;terminal_resolution;next_stage_id;feedback_id;question_id
+34001;"Signal, check mirrors and blind spot, and adjust speed to find a safe gap.";"Paul identifies a potential gap but notices another vehicle beside him.";true;NULL;32002;;33001
+34002;"Move immediately into the highway lane without checking traffic.";"Paul cuts into an occupied lane, creating a dangerous situation.";false;NEGATIVE;;;33001
+34003;"Adjust speed to let the vehicle pass, then merge when the gap is safe.";"Paul checks that the lane is clear and merges safely.";true;POSITIVE;;;33002
+34004;"Force his way into the lane and expect the other driver to brake.";"Paul forces another driver to brake suddenly, creating a collision risk.";false;NEGATIVE;;;33002
+

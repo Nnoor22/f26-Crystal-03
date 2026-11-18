@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- Load Branching Narrative questions. -->
+    <changeSet id="20261116000100-1" author="kip">
+        <loadData file="config/liquibase/data/questions_branching_narrative.csv"
+                  separator=";" encoding="UTF-8" tableName="question">
+            <column header="id" name="id" type="NUMERIC"/>
+            <column header="question" name="question" type="STRING"/>
+            <column header="concept_id" name="concept_id" type="NUMERIC"/>
+        </loadData>
+    </changeSet>
+
+    <!-- Stage scenario CSV data before resolving circular foreign keys. -->
+    <changeSet id="20261116000100-2" author="kip">
+        <createTable tableName="bn_scenario_import">
+            <column name="id" type="bigint"/>
+            <column name="name" type="varchar(255)"/>
+            <column name="topic_id" type="bigint"/>
+            <column name="starting_stage_id" type="bigint"/>
+            <column name="game_id" type="bigint"/>
+        </createTable>
+        <loadData file="config/liquibase/data/scenarios_branching_narrative.csv"
+                  separator=";" encoding="UTF-8" tableName="bn_scenario_import">
+            <column header="id" name="id" type="NUMERIC"/>
+            <column header="name" name="name" type="STRING"/>
+            <column header="topic_id" name="topic_id" type="NUMERIC"/>
+            <column header="starting_stage_id" name="starting_stage_id" type="NUMERIC"/>
+            <column header="game_id" name="game_id" type="NUMERIC"/>
+        </loadData>
+    </changeSet>
+
+    <!-- Insert scenarios before their starting stages exist. -->
+    <changeSet id="20261116000100-3" author="kip">
+        <dropNotNullConstraint tableName="scenario"
+                               columnName="starting_stage_id"
+                               columnDataType="bigint"/>
+        <sql>
+            INSERT INTO scenario (id, name, topic_id, starting_stage_id, game_id)
+            SELECT id, name, topic_id, NULL, game_id
+            FROM bn_scenario_import;
+        </sql>
+    </changeSet>
+
+    <!-- Load stages and answer choices. -->
+    <changeSet id="20261116000100-4" author="kip">
+        <loadData file="config/liquibase/data/stages_branching_narrative.csv"
+                  separator=";" encoding="UTF-8" tableName="stage">
+            <column header="id" name="id" type="NUMERIC"/>
+            <column header="scenario_id" name="scenario_id" type="NUMERIC"/>
+            <column header="question_id" name="question_id" type="NUMERIC"/>
+        </loadData>
+        <loadData file="config/liquibase/data/answers_branching_narrative.csv"
+                  separator=";" encoding="UTF-8" tableName="answer">
+            <column header="id" name="id" type="NUMERIC"/>
+            <column header="text" name="text" type="STRING"/>
+            <column header="outcome_text" name="outcome_text" type="STRING"/>
+            <column header="correct" name="correct" type="BOOLEAN"/>
+            <column header="terminal_resolution" name="terminal_resolution" type="STRING"/>
+            <column header="next_stage_id" name="next_stage_id" type="NUMERIC"/>
+            <column header="feedback_id" name="feedback_id" type="NUMERIC"/>
+            <column header="question_id" name="question_id" type="NUMERIC"/>
+        </loadData>
+    </changeSet>
+
+    <!-- Link starting stages and restore the original constraint. -->
+    <changeSet id="20261116000100-5" author="kip">
+        <sql>
+            UPDATE scenario s
+            JOIN bn_scenario_import b ON b.id = s.id
+            SET s.starting_stage_id = b.starting_stage_id;
+        </sql>
+    </changeSet>
+
+    <!-- Restore the required starting-stage relationship. -->
+    <changeSet id="20261116000100-6" author="kip">
+        <addNotNullConstraint tableName="scenario"
+                              columnName="starting_stage_id"
+                              columnDataType="bigint"/>
+    </changeSet>
+
+    <!-- Remove the temporary import table after successful linking. -->
+    <changeSet id="20261116000100-7" author="kip">
+        <dropTable tableName="bn_scenario_import"/>
+    </changeSet>
+
+</databaseChangeLog>
+
