@@ -9,6 +9,7 @@ import { LoginService } from 'app/login/login.service';
   selector: 'jhi-login',
   imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
+  styleUrl: './login.scss',
 })
 export default class Login implements OnInit, AfterViewInit {
   readonly username = viewChild.required<ElementRef>('username');
