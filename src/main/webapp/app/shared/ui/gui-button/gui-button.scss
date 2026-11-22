@@ -1,0 +1,59 @@
+.gui-button {
+  --gui-button-color: var(--ui-button-gold);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: calc(24 * var(--pixel));
+  min-height: calc(8 * var(--pixel));
+  padding: calc(2 * var(--pixel)) calc(4 * var(--pixel));
+
+  color: var(--ui-button-highlight);
+  background-color: var(--gui-button-color);
+
+  border: calc(3 * var(--pixel)) solid transparent;
+  border-image-source: url('/content/images/ui/button_frame.png');
+  border-image-slice: 8;
+  border-image-width: calc(3 * var(--pixel));
+  border-image-repeat: repeat;
+
+  font-family: 'field', monospace;
+  font-size: var(--font-field-size);
+  font-weight: normal;
+
+  cursor: pointer;
+  image-rendering: pixelated;
+}
+
+.gui-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+
+  background-image: url('/content/images/ui/button_center.png');
+  background-repeat: repeat;
+  background-size: calc(8 * var(--pixel)) calc(8 * var(--pixel));
+
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.gui-button__caption {
+  position: relative;
+  z-index: 1;
+}
+
+.gui-button:hover {
+  filter: brightness(1.1);
+}
+
+.gui-button:focus-visible {
+  outline: calc(2 * var(--pixel)) solid var(--ui-button-highlight);
+  outline-offset: calc(2 * var(--pixel));
+}
+
+.gui-button:active {
+  transform: translateY(var(--pixel));
+}

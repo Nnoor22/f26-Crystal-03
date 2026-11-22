@@ -24,7 +24,8 @@
   <div class="dashboard-box recommendation-box">
     <h2 class="pixel-outline">{{ uiText.dashboard.dailyRecommendation }}</h2>
     <p>Choose a game to practice your legal knowledge today.</p>
-    <a class="btn btn-primary" routerLink="/games">Browse Games</a>
+
+    <jhi-gui-button caption="Browse Games" color="var(--ui-button-gold)" width="200px" height="48px" (buttonClick)="browseGames()" />
   </div>
 
   <div class="dashboard-box profile-box">
@@ -43,6 +44,7 @@
             <span class="profile-stat-value">{{ stats.gamesPlayed }}</span>
             <span class="profile-stat-label">Games Played</span>
           </div>
+
           <div class="profile-stat">
             <span class="profile-stat-value">
               @if (stats.averagePerformance !== null) {
@@ -53,19 +55,23 @@
             </span>
             <span class="profile-stat-label">Avg. Performance</span>
           </div>
+
           <div class="profile-stat">
             <span class="profile-stat-value">{{ stats.currentStreak }}</span>
             <span class="profile-stat-label">Day Streak</span>
           </div>
+
           <div class="profile-stat">
             <span class="profile-stat-value">{{ stats.weeklyPlays }}</span>
             <span class="profile-stat-label">Weekly Plays</span>
           </div>
+
           <div class="profile-stat">
             <span class="profile-stat-value profile-stat-value--name">{{ stats.favoriteGame ?? '—' }}</span>
             <span class="profile-stat-label">Favorite Game</span>
           </div>
         </div>
+
         <p><a routerLink="/my-progress">View All Progress</a></p>
       }
     } @else {
