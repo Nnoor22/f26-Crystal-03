@@ -1,0 +1,10 @@
+<button
+  type="button"
+  class="gui-button"
+  [style.--gui-button-color]="color()"
+  [style.width]="width()"
+  [style.height]="height()"
+  (click)="buttonClick.emit()"
+>
+  <span class="gui-button__caption">{{ caption() }}</span>
+</button>
