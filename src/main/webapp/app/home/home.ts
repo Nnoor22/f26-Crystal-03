@@ -6,6 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AccountService } from 'app/core/auth';
 import { serverApiUrl } from 'app/config';
 import { GuiButton } from 'app/shared/ui/gui-button/gui-button';
+import { GuiWindow } from 'app/shared/ui/gui-window/gui-window';
 import { UI_TEXT } from 'app/shared/ui/ui-text';
 
 interface RecentActivity {
@@ -27,7 +28,7 @@ interface DashboardSummary {
   selector: 'jhi-home',
   templateUrl: './home.html',
   styleUrl: './home.scss',
-  imports: [RouterLink, DatePipe, GuiButton],
+  imports: [RouterLink, DatePipe, GuiButton, GuiWindow],
 })
 export default class Home {
   readonly uiText = UI_TEXT;

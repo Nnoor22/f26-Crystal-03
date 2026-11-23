@@ -21,12 +21,11 @@
 </div>
 
 <div class="dashboard-grid">
-  <div class="dashboard-box recommendation-box">
-    <h2 class="pixel-outline">{{ uiText.dashboard.dailyRecommendation }}</h2>
+  <jhi-gui-window class="recommendation-box" [title]="uiText.dashboard.dailyRecommendation" width="100%" height="100%">
     <p>Choose a game to practice your legal knowledge today.</p>
 
     <jhi-gui-button caption="Browse Games" color="var(--ui-button-gold)" width="200px" height="48px" (buttonClick)="browseGames()" />
-  </div>
+  </jhi-gui-window>
 
   <div class="dashboard-box profile-box">
     <h2 class="pixel-outline">{{ uiText.dashboard.profileSummary }}</h2>

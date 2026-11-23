@@ -1,0 +1,9 @@
+<div class="gui-window" [style.width]="width()" [style.height]="height()">
+  <div class="gui-window__title pixel-outline">
+    {{ title() }}
+  </div>
+
+  <div class="gui-window__content">
+    <ng-content></ng-content>
+  </div>
+</div>
