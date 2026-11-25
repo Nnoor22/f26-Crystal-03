@@ -45,6 +45,7 @@
 .gui-button__caption {
   position: relative;
   z-index: 1;
+  white-space: nowrap;
 }
 
 .gui-button:hover {
