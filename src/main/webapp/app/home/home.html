@@ -24,7 +24,13 @@
   <jhi-gui-window class="recommendation-box" [title]="uiText.dashboard.dailyRecommendation" width="100%" height="100%">
     <p>Choose a game to practice your legal knowledge today.</p>
 
-    <jhi-gui-button caption="Browse Games" color="var(--ui-button-gold)" width="200px" height="48px" (buttonClick)="browseGames()" />
+    <jhi-gui-button
+      caption="Browse Games"
+      color="var(--ui-button-gold)"
+      width="calc(200 * var(--pixel))"
+      height="calc(48 * var(--pixel))"
+      (buttonClick)="browseGames()"
+    />
   </jhi-gui-window>
 
   <div class="dashboard-box profile-box">
